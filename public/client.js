@@ -1,8 +1,9 @@
 document.getElementById('build').addEventListener('click', function (e) {
-    fetch('/build', { method: 'POST' })
+    const input = document.getElementById('text-input').value;
+    fetch('/build', { method: 'POST', body: JSON.stringify( { input }), headers: { 'Content-Type': 'application/json' } })
         .then(function (response) {
             if (response.ok) {
-                console.log('Click was recorded');
+                console.log(response.body);
                 return;
             }
 
