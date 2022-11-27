@@ -7,7 +7,6 @@ class VocabularyEntry {
         this.type = type;
         this.occurenceCount = count;
         this.links = links;
-        this.linksCount = links.length;
     }
 }
 

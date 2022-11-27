@@ -9,7 +9,7 @@ app.use(express.static('public'));
 
 
 app.listen(PORT, () => {
-    console.log(`Listening on ${PORT}`);
+    console.log(`Listening on ${PORT}. Access the app at http://localhost:${PORT}`);
 });
 
 
