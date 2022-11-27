@@ -21,8 +21,10 @@ app.get('/', (req, res) => {
 app.post('/build', (req, res) => {
     const input = req.body.input;
     const alternative = req.body.alternative;
+    const partof = req.body.partof;
+
     const processedString = prepareText(input);
-    const vocab = buildVocab(processedString, alternative);
+    const vocab = buildVocab(processedString, alternative, partof);
 
     res.status(201).send({ processedString, vocab });
 });

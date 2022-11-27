@@ -4,7 +4,8 @@ document.getElementById('build').addEventListener('click', function (e) {
 
     const input = document.getElementById('text-input').value;
     const alternative = document.getElementById('alternative').checked;
-    fetch('/build', { method: 'POST', body: JSON.stringify( { input, alternative }), headers: { 'Content-Type': 'application/json' } })
+    const partof = document.getElementById('partof').checked;
+    fetch('/build', { method: 'POST', body: JSON.stringify({ input, alternative, partof }), headers: { 'Content-Type': 'application/json' } })
         .then(response => response.json())
         .then(data => {
             const nodes = [];
@@ -19,7 +20,7 @@ document.getElementById('build').addEventListener('click', function (e) {
 
             // Remove duplicate edges
             const uniqueEdges = edges.reduce((unique, o) => {
-                if (!unique.some(obj => (obj.from === o.from && obj.to === o.to) || (obj.from === o.to && obj.to === o.from)))  unique.push(o);
+                if (!unique.some(obj => (obj.from === o.from && obj.to === o.to) || (obj.from === o.to && obj.to === o.from))) unique.push(o);
 
                 return unique;
             }, []);

@@ -1,5 +1,5 @@
 const winkNLP = require('wink-nlp')
-const model = require( 'wink-eng-lite-web-model' );
+const model = require('wink-eng-lite-web-model');
 
 class VocabularyEntry {
     constructor(keyword, type, count, links) {
@@ -21,12 +21,12 @@ class Link {
 
 const prepareText = (text) => {
     const processedText = text
-    .replace(/e\.g\./g, 'for example')
-    .replace(/i\.e\./g, 'that is')
-    .replace(/[^\w\s]/gi, ' ') // replace all non alpha-numeric characters except ' (strip punctuaion)
-    .replace((/  |\r\n|\n|\r/gm), ' ') // replace differrent space variants
-    .replace(/\s\s+/g, ' ').trim() // replace all multi-spaces with single one
-    .toLowerCase();
+        .replace(/e\.g\./g, 'for example')
+        .replace(/i\.e\./g, 'that is')
+        .replace(/[^\w\s]/gi, ' ') // replace all non alpha-numeric characters except ' (strip punctuaion)
+        .replace((/  |\r\n|\n|\r/gm), ' ') // replace differrent space variants
+        .replace(/\s\s+/g, ' ').trim() // replace all multi-spaces with single one
+        .toLowerCase();
 
     return processedText;
 }
@@ -38,7 +38,7 @@ const buildVocab = (input, useAlternativeNear = false, usePartOf = false) => {
     const its = nlp.its;
 
     const doc = nlp.readDoc(input);
-    const tokens = doc.tokens().out( its.normal )
+    const tokens = doc.tokens().out(its.normal)
     const tokensPOS = doc.tokens().out(its.pos)
     const classifiedTokens = tokens.map((token, id) => {
         let type = 'notion';
@@ -63,11 +63,11 @@ const buildVocab = (input, useAlternativeNear = false, usePartOf = false) => {
             count: tokens.filter(t => t == token).length
         }
     })
-    .filter((tokenObj) => allowedPOS.includes(tokenObj.POS) && tokenObj.count > 2)
-    .reduce((unique, o) => {
-        if(!unique.some(obj => obj.token === o.token))  unique.push(o);
-        return unique;
-    }, []);
+        .filter((tokenObj) => allowedPOS.includes(tokenObj.POS) && tokenObj.count > 2)
+        .reduce((unique, o) => {
+            if (!unique.some(obj => obj.token === o.token)) unique.push(o);
+            return unique;
+        }, []);
 
 
     const vocabulary = classifiedTokens.map((token) => {
