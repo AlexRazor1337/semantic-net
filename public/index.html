@@ -1,34 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semantic Net</title>
-    <link rel="stylesheet" href="style.css">
-    <script
-        type="text/javascript"
-        src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
-    ></script>
-    <style type="text/css">
-        #network {
-          width: 600px;
-          height: 400px;
-          border: 1px solid lightgray;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semantic Net</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/yegor256/tacit@gh-pages/tacit-css.min.css" />
 </head>
+
 <body>
+  <div id="container">
     <div id="ui-container">
-        <h1>Build a semantic net</h1>
-        <p>Input text:</p>
-        <textarea name="input" id="text-input" cols="30" rows="10"></textarea>
-        <br>
-        <br>
-        <button id="build">Build a net</button>
+      <h1>Build a semantic net</h1>
+      <p>Input text:</p>
+      <textarea name="input" id="text-input" cols="30" rows="10"></textarea>
+      <br>
+      <span>Use alternative neighbour count</span>
+      <label class="switch">
+        <input type="checkbox" id="alternative">
+        <span class="slider round"></span>
+      </label>
+      <br>
+      <br>
+      <button id="build">Build a net</button>
     </div>
-    <div id="network"></div>
+    <div id="spinner"><div></div><div></div><div></div><div></div></div>
+    <div id="result" class="hidden">
+      <p>Processed text</p>
+      <textarea name="input" id="processed" cols="30" rows="5" disabled readonly></textarea>
+
+      <p>Semantic network:</p>
+      <div id="network"></div>
+      <br>
+      <p id="links-count"></p>
+      <button onclick="location.reload()">Back</button>
+    </div>
+  </div>
 </body>
 
 <script src="client.js" defer></script>
+
 </html>

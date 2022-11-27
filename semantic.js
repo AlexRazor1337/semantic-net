@@ -31,7 +31,7 @@ const prepareText = (text) => {
     return processedText;
 }
 
-const buildVocab = (input, useAlternativeNear = false) => {
+const buildVocab = (input, useAlternativeNear = false, usePartOf = false) => {
     const allowedPOS = ['ADJ', 'ADV', 'VERB', 'NUM', 'NOUN', 'PROPN'];
 
     const nlp = winkNLP(model);
@@ -104,7 +104,7 @@ const buildVocab = (input, useAlternativeNear = false) => {
                 let type = 'isa';
 
                 if (token.type !== nearTokenObj.type && ['object', 'notion'].includes(token.type) && ['object', 'notion'].includes(nearTokenObj.type)) type = 'kindof';
-                if (['object', 'action'].includes(token.type) && ['object', 'action'].includes(nearTokenObj.type)) type = 'partof';
+                if (usePartOf && ['object', 'action'].includes(token.type) && ['object', 'action'].includes(nearTokenObj.type) && (token.type !== 'action' && nearTokenObj.type !== 'action')) type = 'partof';
 
                 return new Link(token.token, nearToken, type);
             });
