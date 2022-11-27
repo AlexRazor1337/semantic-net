@@ -1,4 +1,5 @@
 const express = require('express');
+const { prepareText, buildVocab } = require('./semantic');
 
 const PORT = 3000;
 
@@ -18,7 +19,9 @@ app.get('/', (req, res) => {
 
 
 app.post('/build', (req, res) => {
-    console.log('Build request received');
-    console.log(req.body);
-    res.sendStatus(201);
+    const input = req.body.input;
+    const processedString = prepareText(input);
+    const vocab = buildVocab(processedString);
+
+    res.status(201).send({ processedString, vocab });
 });
