@@ -22,7 +22,8 @@ const prepareText = (text) => {
     const processedText = text
         .replace(/e\.g\./g, 'for example')
         .replace(/i\.e\./g, 'that is')
-        .replace(/[^\w\s]/gi, ' ') // replace all non alpha-numeric characters except ' (strip punctuaion)
+        .replace(/as/g, '')
+        .replace(/[^'^’\w\s]/gi, ' ') // replace all non alpha-numeric characters except ' (strip punctuaion)
         .replace((/  |\r\n|\n|\r/gm), ' ') // replace differrent space variants
         .replace(/\s\s+/g, ' ').trim() // replace all multi-spaces with single one
         .toLowerCase();
@@ -62,12 +63,11 @@ const buildVocab = (input, useAlternativeNear = false, usePartOf = false) => {
             count: tokens.filter(t => t == token).length
         }
     })
-        .filter((tokenObj) => allowedPOS.includes(tokenObj.POS) && tokenObj.count > 2)
-        .reduce((unique, o) => {
-            if (!unique.some(obj => obj.token === o.token)) unique.push(o);
-            return unique;
-        }, []);
-
+    .filter((tokenObj) => allowedPOS.includes(tokenObj.POS) && tokenObj.count > 2)
+    .reduce((unique, o) => {
+        if (!unique.some(obj => obj.token === o.token)) unique.push(o);
+        return unique;
+    }, []);
 
     const vocabulary = classifiedTokens.map((token) => {
         let tokenNear = [];
@@ -108,7 +108,9 @@ const buildVocab = (input, useAlternativeNear = false, usePartOf = false) => {
                 return new Link(token.token, nearToken, type);
             });
 
-            return new VocabularyEntry(token.token, token.POS, token.count, links);
+            // TODO Refactor links
+
+            if (links.length) return new VocabularyEntry(token.token, token.type, token.count, links);
         }
     }).filter((t) => !!t);
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const { prepareText, buildVocab } = require('./semantic');
 
-const PORT = 3000;
+const PORT = 80;
 
 const app = express();
 app.use(express.json());

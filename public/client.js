@@ -7,7 +7,7 @@ document.getElementById('build').addEventListener('click', function (e) {
     const partof = document.getElementById('partof').checked;
     fetch('/build', { method: 'POST', body: JSON.stringify({ input, alternative, partof }), headers: { 'Content-Type': 'application/json' } })
         .then(response => response.json())
-        .then(data => {
+        .then(data => { // TODO Check that vocabulary is not empty
             const nodes = [];
             const edges = [];
 
